@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Currency Converter Pro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="bg-circle circle1"></div>
+        <div class="bg-circle circle2"></div>
+        <div class="bg-circle circle3"></div>
+        <div class="bg-circle circle4"></div>
+    </div>
+
+    <div class="container">
+        <header class="header">
+            <h1 class="title"><i class="fas fa-coins"></i> Currency Converter</h1>
+            <p class="subtitle">Real-time exchange rates at your fingertips</p>
+        </header>
+
+        <section class="converter-card">
+            <div class="card-header">
+                <h2>Convert Currency</h2>
+            </div>
+            <form id="converterForm" class="converter-form">
+                <div class="input-group">
+                    <label for="amount">Amount:</label>
+                    <input type="number" id="amount" step="0.01" min="0" required placeholder="Enter amount">
+                </div>
+                <div class="currency-row">
+                    <div class="currency-group">
+                        <label for="fromCurrency">From:</label>
+                        <select id="fromCurrency" required>
+                            {% for code, name in currencies.items() %}
+                                <option value="{{ code }}">{{ code }} - {{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="swap-container">
+                        <button type="button" id="swapBtn" class="swap-btn"><i class="fas fa-exchange-alt"></i></button>
+                    </div>
+                    <div class="currency-group">
+                        <label for="toCurrency">To:</label>
+                        <select id="toCurrency" required>
+                            {% for code, name in currencies.items() %}
+                                <option value="{{ code }}">{{ code }} - {{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <button type="submit" class="convert-btn"><i class="fas fa-sync-alt"></i> Convert Now</button>
+            </form>
+            <div id="result" class="result-container" style="display: none;">
+                <div class="result-card">
+                    <div class="result-amount" id="convertedAmount">0.00</div>
+                    <div class="result-details">
+                        <p><span id="originalAmount">0.00</span> <span id="fromCurrencyCode">USD</span> = <span id="finalAmount">0.00</span> <span id="toCurrencyCode">EUR</span></p>
+                        <p class="exchange-rate">Exchange Rate: 1 <span id="rateFrom">USD</span> = <span id="rateValue">0.00</span> <span id="rateTo">EUR</span></p>
+                    </div>
+                </div>
+            </div>
+            <div id="loading" class="loading" style="display: none;">
+                <div class="spinner"></div>
+                <p>Converting...</p>
+            </div>
+            <div id="error" class="error-message" style="display: none;"></div>
+        </section>
+
+        <section class="features">
+            <div class="feature-card">
+                <i class="fas fa-sync-alt"></i>
+                <h3>Real-time Rates</h3>
+                <p>Live exchange rates updated every minute</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-globe"></i>
+                <h3>Global Currencies</h3>
+                <p>Support for 15+ major world currencies</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-mobile-alt"></i>
+                <h3>Mobile Friendly</h3>
+                <p>Responsive design for all devices</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
